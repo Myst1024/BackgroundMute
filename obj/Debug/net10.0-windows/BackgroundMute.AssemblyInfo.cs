@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BackgroundMute")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ce72de2379d9c45f847444d04ca63b9b5a6e34f9")]
 [assembly: System.Reflection.AssemblyProductAttribute("BackgroundMute")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BackgroundMute")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

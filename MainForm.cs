@@ -211,7 +211,7 @@ internal sealed class MainForm : Form
             foreach (var program in programs)
             {
                 var label = program.IsPlayingAudio
-                    ? $"{program.DisplayName} [audio]"
+                    ? $"{program.DisplayName} 🔊"
                     : program.DisplayName;
                 var item = new ProgramListItem(label, program.IdentityKey);
 
