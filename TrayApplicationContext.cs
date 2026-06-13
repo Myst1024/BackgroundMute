@@ -16,15 +16,10 @@ internal sealed class TrayApplicationContext : ApplicationContext
     {
         try
         {
-            // Get the directory where the executable is located
-            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
-            var exeDirectory = Path.GetDirectoryName(assembly.Location);
-            
-            // Load icon from exe directory
-            string iconPath = Path.Combine(exeDirectory ?? "", "BackgroundMute.ico");
-            if (File.Exists(iconPath))
+            var exeIcon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+            if (exeIcon is not null)
             {
-                return new Icon(iconPath);
+                return exeIcon;
             }
         }
         catch
