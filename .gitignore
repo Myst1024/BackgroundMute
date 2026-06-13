@@ -1,0 +1,59 @@
+# IDE and Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Visual Studio
+.vs/
+.vscode/
+*.user
+*.suo
+*.sln.docstates
+*.userprefs
+*.pidb
+*.VC.db
+*.VC.VC.opendb
+
+# Build Results
+bin/
+obj/
+.nuget/
+packages/
+.packages/
+*.nupkg
+*.snupkg
+*.appxupload
+*.appx
+PublishProfiles/
+
+# NuGet
+*.nuget.props
+*.nuget.targets
+
+# Rider
+.idea/
+*.sln.iml
+riderModule.iml
+
+# Local user-specific settings
+local.settings.json
+appsettings.local.json
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.log
+
+# Operating System files
+Thumbs.db
+.DS_Store
+*.lnk
+
+# Application specific
+*.exe
+!BackgroundMute.ico
+LocalSettings.json
