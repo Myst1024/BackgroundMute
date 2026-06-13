@@ -23,7 +23,7 @@ Installers:
   - Architecture: x64
     InstallerType: inno
     InstallerUrl: https://github.com/Myst1024/BackgroundMute/releases/download/v1.0.0/BackgroundMute-Setup-1.0.0.exe
-    InstallerSha256: 72A1D3AB0C143EB0C3BB870A8468BFA17F01B59C4EA4C1F5E4E954267725719D
+    InstallerSha256: 2DB001E5070B95DD5A1C95B0996971068AFF080E6CCA047CD5A5C63623596E14
     InstallerSwitches:
       Silent: /VERYSILENT /SUPPRESSMSGBOXES /NORESTART
       SilentWithProgress: /SILENT /SUPPRESSMSGBOXES /NORESTART
