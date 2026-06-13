@@ -1,6 +1,6 @@
 # BackgroundMute
 
-Mute background applications while keeping foreground audio active.
+Automatically mute programs when minimized and unmute them when opened again.
 
 ## Install
 
