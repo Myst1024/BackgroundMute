@@ -9,7 +9,8 @@ internal sealed class MainForm : Form
     private readonly Label _hintLabel;
     private readonly Label _countLabel;
     private readonly TableLayoutPanel _rootPanel;
-    private readonly FlowLayoutPanel _footerPanel;
+    private readonly TableLayoutPanel _footerPanel;
+    private readonly CheckBox _autorunCheckBox;
 
     private bool _isDarkTheme;
 
@@ -59,20 +60,24 @@ internal sealed class MainForm : Form
         };
         _programList.ItemCheck += OnItemCheck;
 
-        _footerPanel = new FlowLayoutPanel
+        _footerPanel = new TableLayoutPanel
         {
             Dock = DockStyle.Fill,
-            FlowDirection = FlowDirection.LeftToRight,
+            ColumnCount = 3,
+            RowCount = 1,
             AutoSize = true,
-            WrapContents = false,
             Margin = new Padding(0, 8, 0, 0)
         };
+        _footerPanel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+        _footerPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
+        _footerPanel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+        _footerPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
 
         _countLabel = new Label
         {
             AutoSize = true,
             Text = "0 programs",
-            Margin = new Padding(0, 8, 12, 0)
+            Margin = new Padding(0, 0, 12, 0)
         };
 
         _refreshButton = new Button
@@ -88,8 +93,25 @@ internal sealed class MainForm : Form
         _refreshButton.FlatAppearance.BorderSize = 1;
         _refreshButton.Click += (_, _) => RefreshRequested?.Invoke();
 
-        _footerPanel.Controls.Add(_countLabel);
-        _footerPanel.Controls.Add(_refreshButton);
+        _autorunCheckBox = new CheckBox
+        {
+            AutoSize = true,
+            Text = "Run on startup",
+            Cursor = Cursors.Hand
+        };
+        _autorunCheckBox.CheckedChanged += OnAutorunCheckChanged;
+
+        var buttonContainer = new FlowLayoutPanel
+        {
+            AutoSize = true,
+            FlowDirection = FlowDirection.LeftToRight,
+            WrapContents = false
+        };
+        buttonContainer.Controls.Add(_countLabel);
+        buttonContainer.Controls.Add(_refreshButton);
+
+        _footerPanel.Controls.Add(buttonContainer, 0, 0);
+        _footerPanel.Controls.Add(_autorunCheckBox, 2, 0);
 
         _rootPanel.Controls.Add(_hintLabel, 0, 0);
         _rootPanel.Controls.Add(_programList, 0, 1);
@@ -98,6 +120,63 @@ internal sealed class MainForm : Form
 
         SystemEvents.UserPreferenceChanged += OnUserPreferenceChanged;
         ApplyThemeFromSystem();
+        
+        // Initialize autorun checkbox state
+        _autorunCheckBox.Checked = IsAutorunEnabled();
+    }
+
+    protected override void OnHandleCreated(EventArgs e)
+    {
+        base.OnHandleCreated(e);
+        // Ensure autorun state is synced when form is first shown
+        _autorunCheckBox.Checked = IsAutorunEnabled();
+    }
+
+    private bool IsAutorunEnabled()
+    {
+        try
+        {
+            using (var key = Registry.CurrentUser.OpenSubKey(
+                @"Software\Microsoft\Windows\CurrentVersion\Run", false))
+            {
+                return key?.GetValue("BackgroundMute") != null;
+            }
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    private void SetAutorunEnabled(bool enabled)
+    {
+        try
+        {
+            using (var key = Registry.CurrentUser.OpenSubKey(
+                @"Software\Microsoft\Windows\CurrentVersion\Run", true))
+            {
+                if (key == null)
+                    return;
+
+                if (enabled)
+                {
+                    key.SetValue("BackgroundMute", Application.ExecutablePath, RegistryValueKind.String);
+                }
+                else
+                {
+                    key.DeleteValue("BackgroundMute", false);
+                }
+            }
+        }
+        catch
+        {
+            // Silently fail if we can't write to registry
+        }
+    }
+
+    private void OnAutorunCheckChanged(object? sender, EventArgs e)
+    {
+        SetAutorunEnabled(_autorunCheckBox.Checked);
     }
 
     protected override void Dispose(bool disposing)
@@ -182,9 +261,9 @@ internal sealed class MainForm : Form
                 listBox.BorderStyle = BorderStyle.FixedSingle;
                 break;
 
-            case Button button:
-                button.BackColor = palette.Surface;
-                button.ForeColor = palette.Text;
+            case Button or CheckBox:
+                control.BackColor = palette.Surface;
+                control.ForeColor = palette.Text;
                 break;
 
             default:
