@@ -40,4 +40,4 @@ Name: "{group}\BackgroundMute"; Filename: "{app}\BackgroundMute.exe"
 Name: "{group}\Uninstall BackgroundMute"; Filename: "{uninstallexe}"
 
 [Run]
-Filename: "{app}\BackgroundMute.exe"; Description: "Launch BackgroundMute"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\BackgroundMute.exe"; Description: "Launch BackgroundMute"; Flags: nowait postinstall
