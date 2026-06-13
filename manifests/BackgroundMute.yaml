@@ -1,14 +1,15 @@
-PackageIdentifier: Gunnar.BackgroundMute
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.singleton.1.9.0.schema.json
+PackageIdentifier: Myst1024.BackgroundMute
 PackageVersion: 1.0.0
 PackageUrl: https://github.com/Myst1024/BackgroundMute
-Author: Gunnar
+Author: Myst1024
 PackageName: BackgroundMute
+Moniker: backgroundmute
 PackageLocale: en-US
-Publisher: Gunnar
+Publisher: Myst1024
 PublisherUrl: https://github.com/Myst1024
 PublisherSupportUrl: https://github.com/Myst1024/BackgroundMute/issues
 License: MIT
-LicenseUrl: https://github.com/Myst1024/BackgroundMute/blob/main/LICENSE
 ShortDescription: Mute background applications while keeping foreground audio active
 Description: BackgroundMute automatically mutes audio from background processes while preserving sound from the active window. Useful for gaming, streaming, or focusing on a single application without audio interference.
 ReleaseNotes: Initial release
@@ -20,10 +21,12 @@ Tags:
   - windows
 Installers:
   - Architecture: x64
-    InstallerType: portable
-    InstallerUrl: https://github.com/Myst1024/BackgroundMute/releases/download/v1.0.0/BackgroundMute.exe
-    InstallerSha256: PLACEHOLDER_SHA256
-    Commands:
-      - BackgroundMute
+    InstallerType: inno
+    InstallerUrl: https://github.com/Myst1024/BackgroundMute/releases/download/v1.0.0/BackgroundMute-Setup-1.0.0.exe
+    InstallerSha256: 72A1D3AB0C143EB0C3BB870A8468BFA17F01B59C4EA4C1F5E4E954267725719D
+    InstallerSwitches:
+      Silent: /VERYSILENT /SUPPRESSMSGBOXES /NORESTART
+      SilentWithProgress: /SILENT /SUPPRESSMSGBOXES /NORESTART
+      Custom: /NORESTART
 ManifestType: singleton
-ManifestVersion: 1.0.0
+ManifestVersion: 1.9.0
