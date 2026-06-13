@@ -54,6 +54,5 @@ Thumbs.db
 *.lnk
 
 # Application specific
-*.exe
 !BackgroundMute.ico
 LocalSettings.json
